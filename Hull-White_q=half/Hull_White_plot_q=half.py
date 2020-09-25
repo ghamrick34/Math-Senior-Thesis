@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import u_and_d
+import u_and_d_Hull_White as u_and_d
 import fetch
 from Hull_White_class import Node
 from datetime import datetime, timedelta
