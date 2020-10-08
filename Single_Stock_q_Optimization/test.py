@@ -1,15 +1,15 @@
 import fetch
 from nodes import gen_tree
 from Hull_White_plot_General_q import plot
-from percent_error import percent_error
+from error import error
 
-stock = "oxy"
+stock = "bp"
 
 possible_q = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]
 errors = []
 
 for i in possible_q:
-    errors.append([i,percent_error(i, stock)])
+    errors.append([i,error(i, stock)])
 
 optimized_q = min(errors, key = lambda t: t[1])
 

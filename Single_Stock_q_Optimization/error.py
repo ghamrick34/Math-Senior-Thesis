@@ -6,7 +6,7 @@ from Hull_White_class import Node
 import matplotlib.patches as mpatches
 import nodes as n
 
-def percent_error(q, entry):
+def error(q, entry):
     # Predicted nodes
     tree_object = n.gen_tree(q, entry)
 
