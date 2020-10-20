@@ -14,7 +14,8 @@ def plot(q, entry):
     
     tree_object = n.gen_tree(q, entry)
 
-    tree = [tree_object.n0, 
+    tree = [
+    tree_object.n0, 
     tree_object.n1, 
     tree_object.n2, 
     tree_object.n3, 
@@ -28,7 +29,8 @@ def plot(q, entry):
     tree_object.n11,
     tree_object.n12,
     tree_object.n13,
-    tree_object.n14]
+    tree_object.n14
+    ]
 
     fig,ax = plt.subplots()
 
@@ -41,6 +43,7 @@ def plot(q, entry):
     colors_2 = 'grey'
     colors_3 = 'white'
     colors_4 = 'black'
+    colors_5 = 'red'
     marker = '.'
     font = 'Tahoma'
 
@@ -86,10 +89,34 @@ def plot(q, entry):
                     c=colors_3,
                     fontname=font) # horizontal alignment can be left, right or center
 
+    # Expected value plot
+    real_life_data_day = [0,1,2,3,4]
+    day_0_ev = tree[0].price
+    day_1_ev = (sum(tree[i].price*tree[i].probability for i in range(1,3)))
+    day_2_ev = (sum(tree[i].price*tree[i].probability for i in range(3,6)))
+    day_3_ev = (sum(tree[i].price*tree[i].probability for i in range(6,10)))
+    day_4_ev = (sum(tree[i].price*tree[i].probability for i in range(10,15)))
+
+    ev = [day_0_ev,day_1_ev,day_2_ev,day_3_ev,day_4_ev]
+    print(ev)
+    x = np.array(real_life_data_day)
+    y = np.array(ev)
+    m, b = np.polyfit(x, y, 1)
+    print(m)
+    ax.scatter(real_life_data_day,ev, s=scale, c=colors_5, marker=marker, zorder=2)
+    ax.plot(x, m*x + b, c=colors_5)
+    label2 = str(round(m,3)) + "(x)+ " + str(round(b,2))
+    print(label2)
+    ax.annotate(label2, # this is the text
+                    (2,(tree_object.n14.price)), # this is the point to label
+                    va='center',
+                    ha='center',
+                    c=colors_5,
+                    fontname=font) # horizontal alignment can be left, right or center
 
 
     # Real-life data
-    real_life_data_day = [0,1,2,3,4]
+
     real_life_data_price = [(fetch.close_data(entry)[i-5]) for i in range(5)]
 
     # Plot real-life data as a line plot
